@@ -1,0 +1,5 @@
+.idea
+.sbt
+.g8
+*.class
+target
