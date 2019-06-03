@@ -6,6 +6,7 @@ import play.mvc.Result;
 import services.PermutationService;
 
 import javax.inject.Inject;
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -27,10 +28,18 @@ public class HomeController extends Controller {
         return ok(views.html.index.render());
     }
 
-    public Result permutate(Integer n) {
-        List<String> result = Lists.newArrayList("Not support for n >= 10, for now n==" + n);
-        if (n < 10) {
-            result = permutationService.permuatate(n);
+    public Result permutate(String n) {
+        List<String> result = Lists.newArrayList("Not integer ");
+        try {
+            Integer num = Integer.parseInt(n);
+            if (num > 0 && num < 10) {
+                result = permutationService.permuatate(num);
+            } else {
+                result = Lists.newArrayList(
+                        MessageFormat.format("Not support for n < 0 or n >= 10, for now n=={0}", n));
+            }
+        } catch (Exception ignored) {
+
         }
         return ok(views.html.permutation.render("Permutation", result));
     }
