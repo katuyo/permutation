@@ -1,17 +1,18 @@
 language: java
-
 services:
-  - docker
+- docker
+env:
+  global:
+    secure: tRiPwsi+955Di2Lnic3+cmL6T05+lnrlcSM7LllgqFJ5baL+Zlq5GIZpboJodee6ge04k7NYVobFI/f6Vxrwm/0bLF/3etng9Vl7g06a1AIY5PqP/NZ7l71z1Z6nHnQcy2n1f44JoIstrCamFnw6z/keZvfU6DqEtcrJBeIuKxJK9IPu3zh7bSbfTOColKy96gdmO242RPkQyApxoHMmam0zSAR9VeIKbSkrU/GTME+a3Og1ZyJiJeUGqQWBHtxTW5fJPmEtmfyTS+LxGuClM53mF3IrqUkTdbBGsm1doJ7mt0wEc9oAuhCWaSFh4HH6ewTfgofZgPWzOKGAmsXXdTFMbVomLZU753q58lhebEpIeaCHF3DbfK1v3xChKKL4nncZ06IHRtDsZ6ohApvOLWkxG/+OyoFZopok4lvGEKInWGEAOEKYZW9K+1zHF4iDAb2q3rH2+6NMJ/2PGy6WCYa8bS4wtM7w/7Z9QC0A04EypKqTLJMQqSD9OzJzuzl8AxhNjXDAJzxrIN4YTrOsHEMkT1C7DPmgdszDlkwFODwQJ+hKrx7W4ODgo1lEH+kR/BRSPlqScjrjlasRi19YNQEobEkbc+wnue3hLPu7u8uieMlS5LSuP2LM71j8rLQXMdc9Y6JDTl963Tnqvly8XQnF5TKfIEbfCA6HaVw5JYo=
 
 install:
-  - docker pull featx/playframework:sbt-1.2.8
+- docker pull featx/playframework:sbt-1.2.8
+script:
+- docker build -t featx/permutation:1.0-SNAPSHOT .
 
-script:  
-  - docker build -t featx/permutation:1.0-SNAPSHOT .
-
-#after_script: 
-#  - docker login -u  
-#  - docker push
+after_script: 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push featx/permutation:1.0-SNAPSHOT
 
 #deploy:
 #  provider:
