@@ -1,4 +1,4 @@
-FROM featx/sbt:1.2.8-jre8-alpine
+FROM featx/sbt:1.2.8-jdk8-alpine
 WORKDIR /tmp
 RUN set -ex && \
    apk add -U docker && \
