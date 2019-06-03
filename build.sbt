@@ -15,16 +15,20 @@ libraryDependencies += guice
 
 //Docker
 import com.typesafe.sbt.packager.docker._
-packageName in Docker := "featx/" + name
+packageName in Docker := packageName.value
 version in Docker := version.value
-dockerExposedPorts ++= Seq(9000, 9443)
-dockerRepository := Some("registry.cn-shanghai.aliyuncs.com")
+//defaultLinuxInstallLocation in Docker := "/usr/local/permutation"
 
+dockerRepository := Some("registry.cn-shanghai.aliyuncs.com")
+dockerUsername := Some("featx")
+
+dockerBaseImage := "openjdk:8u212-jre-alpine"
+dockerExposedPorts := Seq(9000, 9443)
 
 dockerCommands := Seq(
-  Cmd("FROM", "openjdk:8u212-jre-alpine"),
+  Cmd("FROM", s"${dockerBaseImage.value}"),
   Cmd("LABEL", s"""MAINTAINER="${maintainer.value}""""),
-  Cmd("COPY", "opt/docker /usr/local/permutation"),
+  Cmd("COPY", "opt/docker", "/usr/local/permutation"),
   Cmd("RUN", s"""apk add -U bash && \\
     addgroup -g 1000 featx && \\
     adduser -G featx -u 1000 -s /sbin/nologin -D -H featx && \\
