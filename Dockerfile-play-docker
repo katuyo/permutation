@@ -1,3 +1,4 @@
+#For Image featx/play-docker:sbt-1.2.8
 FROM featx/sbt:1.2.8-jdk8-alpine
 WORKDIR /tmp
 RUN set -ex && \

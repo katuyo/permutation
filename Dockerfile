@@ -1,5 +1,5 @@
 #Application Building Container  Compling Time
-FROM featx/sbt:1.2.8-play-docker as stage0
+FROM featx/play-docker:sbt-1.2.8 as stage0
 COPY . /usr/local
 WORKDIR /usr/local
 RUN sbt docker:publishLocal
