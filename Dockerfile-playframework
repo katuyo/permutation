@@ -1,8 +1,8 @@
-#For Image featx/play-docker:sbt-1.2.8
+#For Image featx/playframework:sbt-1.2.8
+
 FROM featx/sbt:1.2.8-jdk8-alpine
 WORKDIR /tmp
 RUN set -ex && \
-   apk add -U docker && \
    sbt new playframework/play-java-seed.g8 --name=play-project --organization=org.featx.play && \
    cd play-project && \
    sbt dist && \
